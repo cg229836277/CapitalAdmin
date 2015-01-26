@@ -3,5 +3,6 @@
 
     <string name="app_name">CapitalAdmin</string>
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_base">BaseActivity</string>
 
 </resources>
