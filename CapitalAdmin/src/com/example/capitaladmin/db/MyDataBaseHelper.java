@@ -1,6 +1,6 @@
 package com.example.capitaladmin.db;
 
-import com.example.capitaladmin.common.DataPath;
+import com.example.capitaladmin.common.DataCommon;
 import com.example.capitaladmin.entity.CapitalRecord;
 import com.example.capitaladmin.entity.TableEntity;
 import com.j256.ormlite.support.ConnectionSource;
@@ -39,7 +39,7 @@ public class MyDataBaseHelper extends DataBaseHelper{
 
 	@Override
 	public String getDataBaseFilePath() {
-		return DataPath.DB_PATH;
+		return DataCommon.DB_PATH;
 	}
 
 	@Override

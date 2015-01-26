@@ -1,6 +1,7 @@
 package com.example.capitaladmin.base;
 
 import android.app.Application;
+import android.util.DisplayMetrics;
 
 
  /**
@@ -12,7 +13,9 @@ import android.app.Application;
  */
 
 public class CapitalAdminApplication extends Application {
+	
 	public static CapitalAdminApplication appContext;
+	public DisplayMetrics screenSize;
 	
 	@Override
 	public void onCreate() {
@@ -23,5 +26,27 @@ public class CapitalAdminApplication extends Application {
 	
 	public static CapitalAdminApplication getContext(){
 		return appContext;
+	}
+	
+	/**
+	 * 获取屏幕尺寸
+	 * 
+	 * @author chengang
+	 * @date 2014-10-29 上午9:26:14
+	 * @return
+	 */
+	public DisplayMetrics getScreenSize() {
+		return screenSize;
+	}
+	
+	/**
+	 * 设置屏幕尺寸
+	 * 
+	 * @author chengang
+	 * @date 2014-10-29 上午9:26:29
+	 * @param screenSize
+	 */
+	public void setScreenSize(DisplayMetrics screenSize) {
+		this.screenSize = screenSize;
 	}
 }
