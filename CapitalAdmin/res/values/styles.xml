@@ -11,4 +11,8 @@
         <item name="android:backgroundDimEnabled">false</item>  
         <item name="android:windowFrame">@null</item>
     </style>
+    
+    <style name="CustomCheckboxTheme" parent="@android:style/Widget.CompoundButton.CheckBox">
+		<item name="android:button">@drawable/cost_type_choose_state</item>
+	</style>
 </resources>
