@@ -36,7 +36,7 @@ public class DataCommon {
 	public final static String OTHERS_INCOM = "OTHERS_INCOM";
 	
 	public final static String[] COSTTYPE = {"超市购物" , "下馆子" , "服装" , 
-		"在线购物" , "旅行费用" , "礼物" , "房租水电" , "公共交通" , "其他"};
+		"在线购物" , "旅行费用" , "礼物" , "房租水电" , "公共交通" , "医药费" , "其他"};
 	
 	public final static String[] INCOMTYPE = {"零花钱" , "压岁钱" , "工资" , "奖金" , "彩票" , "其他"};
 }
