@@ -14,7 +14,8 @@
         android:gravity="center"
         android:text="柴米油盐"
         android:textColor="#ffffff"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/second_text"
@@ -26,7 +27,8 @@
         android:gravity="center"
         android:text="日常用品"
         android:textColor="#ffffff"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/third_text"
@@ -38,6 +40,7 @@
         android:gravity="center"
         android:text="下馆子"
         android:textColor="#ffffff"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:visibility="gone" />
 
 </LinearLayout>
