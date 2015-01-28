@@ -101,10 +101,12 @@ public class CalculatorActivity extends BaseActivity implements OnClickListener{
 			addTwoNumbers();
 			break;
 		case OPERATE_REDUCE:
-			
+			operateType = OPERATE_REDUCE;	
+			reduceTwoNumbers();
 			break;
 		case OPERATE_MULTIPLY:
-			
+			operateType = OPERATE_MULTIPLY;	
+			multiplyTwoNumbers();
 			break;
 		case OPERATE_SEPERATE:
 			
@@ -117,6 +119,10 @@ public class CalculatorActivity extends BaseActivity implements OnClickListener{
 		case OPERATE_EQUAL:
 			if(!StringUtil.isEmpty(operateType) && operateType.equals(OPERATE_ADD)){
 				addTwoNumbers();
+			}else if(!StringUtil.isEmpty(operateType) && operateType.equals(OPERATE_REDUCE)){
+				reduceTwoNumbers();
+			}else if(!StringUtil.isEmpty(operateType) && operateType.equals(OPERATE_MULTIPLY)){
+				multiplyTwoNumbers();
 			}
 			operateType = null;		
 			break;
@@ -145,11 +151,47 @@ public class CalculatorActivity extends BaseActivity implements OnClickListener{
 		int addition = addedNumber + addNumber;
 		String addNumberString = String.valueOf(addition);
 		inputEditText.setText(addNumberString);
-		operateNumber = addNumberString;
-		
+		operateNumber = addNumberString;		
 	}
 	
-	StringBuffer inputBuff = new StringBuffer();
+	/**
+	 * 两个数相减
+	 * 
+	 * @author Administrator
+	 * @date 2015-1-28 下午3:20:02
+	 */
+	public void reduceTwoNumbers(){
+		operateNumber = inputEditText.getText().toString();
+		if(StringUtil.isEmpty(operatedNumber)){
+			return;
+		}
+		int reducedNumber = Integer.valueOf(operatedNumber);
+		int reduceNumber = Integer.valueOf(operateNumber);
+		int reducetion = reducedNumber - reduceNumber;
+		String reduceNumberString = String.valueOf(reducetion);
+		inputEditText.setText(reduceNumberString);
+		operateNumber = reduceNumberString;		
+	}
+	
+	/**
+	 * 两个数相乘
+	 * 
+	 * @author Administrator
+	 * @date 2015-1-28 下午3:20:02
+	 */
+	public void multiplyTwoNumbers(){
+		operateNumber = inputEditText.getText().toString();
+		if(StringUtil.isEmpty(operatedNumber)){
+			return;
+		}
+		int multiedNumber = Integer.valueOf(operatedNumber);
+		int multiNumber = Integer.valueOf(operateNumber);
+		int multion = multiedNumber * multiNumber;
+		String multiNumberString = String.valueOf(multion);
+		inputEditText.setText(multiNumberString);
+		operateNumber = multiNumberString;		
+	}
+	
 	public void operateNumberClicked(String number){
 		
 		if(!StringUtil.isEmpty(operateType)){
