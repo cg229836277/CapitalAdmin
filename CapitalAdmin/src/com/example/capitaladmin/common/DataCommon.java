@@ -17,23 +17,27 @@ public class DataCommon {
 	private final static String BASE_PATH = Environment.getExternalStorageDirectory() + File.separator + "capital";
 	public static final String DB_PATH = BASE_PATH + File.separator + "db";
 	
-	public final static String FOOD = "FOOD";
-	public final static String DAILY = "DAILY";
+	public final static String[] COST_TYPE_DATA = {"SUPERMARKET_SHOPPING" , "RESTAURANT" , "CLOTH",
+		"SHOPPING_ONLINE","TRAVEL","GIFT","HOUSE_RENT","BUS_TRAFFIC","HOSPITAL","OTHERS_COST"};
+	public final static String[] INCOME_TYPE_DATA = {"POKET_MONEY","YEAR_GIFT","SALARY","REWARD","LOTTERY","OTHERS_INCOME"};
+	
+	public final static String SUPERMARKET_SHOPPING = "SUPERMARKET_SHOPPING";
 	public final static String RESTAURANT = "RESTAURANT";
 	public final static String CLOTH = "CLOTH";
-	public final static String SHOES = "SHOES";
 	public final static String SHOPPING_ONLINE = "SHOPPING_ONLINE";
-	public final static String TICKET = "TICKET";
+	public final static String TRAVEL = "TRAVEL";
 	public final static String GIFT = "GIFT";
-	public final static String HOTEL = "HOTEL";
-	public final static String BOOKS = "BOOKS";
-	public final static String OTHERS = "OTHERS";
-	public final static String POCKET_MONKEY = "POCKET_MONKEY";
-	public final static String YEAR_MONKEY = "YEAR_MONKEY";
+	public final static String HOUSE_RENT = "HOUSE_RENT";
+	public final static String BUS_TRAFFIC = "BUS_TRAFFIC";
+	public final static String HOSPITAL = "HOSPITAL";
+	public final static String OTHERS_COST = "OTHERS_COST";
+	
+	public final static String POKET_MONEY = "POKET_MONEY";
+	public final static String YEAR_GIFT = "YEAR_GIFT";
 	public final static String SALARY = "SALARY";
 	public final static String REWARD = "REWARD";
 	public final static String LOTTERY = "LOTTERY";
-	public final static String OTHERS_INCOM = "OTHERS_INCOM";
+	public final static String OTHERS_INCOME = "OTHERS_INCOME";
 	
 	public final static String[] COSTTYPE = {"超市购物" , "下馆子" , "服装" , 
 		"在线购物" , "旅行费用" , "礼物" , "房租水电" , "公共交通" , "医药费" , "其他"};

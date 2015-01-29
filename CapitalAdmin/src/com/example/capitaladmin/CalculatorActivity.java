@@ -4,12 +4,14 @@ import com.example.capitaladmin.base.BaseActivity;
 import com.example.capitaladmin.common.StringUtil;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 public class CalculatorActivity extends BaseActivity implements OnClickListener{
 
@@ -33,7 +35,7 @@ public class CalculatorActivity extends BaseActivity implements OnClickListener{
 	private final String OPERATE_SEPERATE = "/";
 	private final String OPERATE_POINT = ".";
 	private final String OPERATE_EQUAL = "=";
-	private final String OPERATE_CANCEL = "C";
+	private final String OPERATE_DELETE = "C";
 	
 	private String operateType = null;
 	
@@ -42,6 +44,8 @@ public class CalculatorActivity extends BaseActivity implements OnClickListener{
 	
 	private String operateNumber = null;//操作数
 	private String operatedNumber = null;//被操作数
+	
+	public final static String RESULT = "result";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +72,7 @@ public class CalculatorActivity extends BaseActivity implements OnClickListener{
 		okBtn = (Button)findViewById(buttonExtraIds[1]);
 		cancleBtn = (Button)findViewById(buttonExtraIds[2]);
 		deleteBtn.setOnClickListener(this);
+		deleteBtn.setTag(OPERATE_DELETE);
 		okBtn.setOnClickListener(this);
 		cancleBtn.setOnClickListener(this);
 		
@@ -92,6 +97,20 @@ public class CalculatorActivity extends BaseActivity implements OnClickListener{
 				}
 			}
 		}
+		
+		switch (v.getId()) {
+		case R.id.ok:
+			
+			String result = inputEditText.getText().toString();
+			Intent intent = new Intent();
+			intent.putExtra(RESULT, result);
+			setResult(0, intent);
+			finish();
+			break;
+		case R.id.cancle:
+			finish();
+			break;
+		}
 	}
 	
 	public void dealOperate(String operateSign){
@@ -102,14 +121,15 @@ public class CalculatorActivity extends BaseActivity implements OnClickListener{
 			break;
 		case OPERATE_REDUCE:
 			operateType = OPERATE_REDUCE;	
-			reduceTwoNumbers();
+//			reduceTwoNumbers();
 			break;
 		case OPERATE_MULTIPLY:
 			operateType = OPERATE_MULTIPLY;	
-			multiplyTwoNumbers();
+//			multiplyTwoNumbers();
 			break;
 		case OPERATE_SEPERATE:
-			
+			operateType = OPERATE_SEPERATE;	
+//			seperateTwoNumbers();
 			break;
 		case OPERATE_POINT:
 			if(!StringUtil.isEmpty(operateNumber) && !operateNumber.contains(".")){
@@ -123,11 +143,16 @@ public class CalculatorActivity extends BaseActivity implements OnClickListener{
 				reduceTwoNumbers();
 			}else if(!StringUtil.isEmpty(operateType) && operateType.equals(OPERATE_MULTIPLY)){
 				multiplyTwoNumbers();
+			}else if(!StringUtil.isEmpty(operateType) && operateType.equals(OPERATE_SEPERATE)){
+				seperateTwoNumbers();
 			}
 			operateType = null;		
 			break;
-		case OPERATE_CANCEL:
-			
+		case OPERATE_DELETE:
+			inputEditText.setText("");
+			operateType = null;
+			operatedNumber = null;
+			operateNumber = null;
 			break;
 
 		default:
@@ -192,11 +217,52 @@ public class CalculatorActivity extends BaseActivity implements OnClickListener{
 		operateNumber = multiNumberString;		
 	}
 	
+	/**
+	 * 两个数相除
+	 * 
+	 * @author Administrator
+	 * @date 2015-1-28 下午3:20:02
+	 */
+	public void seperateTwoNumbers(){
+		operateNumber = inputEditText.getText().toString();
+		
+		if(StringUtil.isEmpty(operateNumber)){
+			Toast.makeText(getApplicationContext(), "除数不能为空", Toast.LENGTH_SHORT).show();
+			return;
+		}
+		
+		if(StringUtil.isEmpty(operatedNumber)){
+			return;
+		}
+
+		int seperatedNumber = Integer.valueOf(operatedNumber);
+		int seperateNumber = Integer.valueOf(operateNumber);
+		
+		if(seperateNumber == 0){
+			Toast.makeText(getApplicationContext(), "除数不能为0", Toast.LENGTH_SHORT).show();
+			return;
+		}
+		
+		String seperateNumberString = null;
+		if(operatedNumber.contains(".") || operateNumber.contains(".")){
+			double seperatedPointNumber = Integer.valueOf(operatedNumber);
+			double seperatePointNumber = Integer.valueOf(operateNumber);
+			double pointSeperation = seperatedPointNumber / seperatePointNumber;
+			seperateNumberString = String.format("%.2f", pointSeperation);
+		}else{
+			int seperation = seperatedNumber / seperateNumber;
+			seperateNumberString = String.valueOf(seperation);
+		}
+		
+		inputEditText.setText(seperateNumberString);
+		operateNumber = seperateNumberString;		
+	}
+	
 	public void operateNumberClicked(String number){
 		
 		if(!StringUtil.isEmpty(operateType)){
 			operatedNumber = inputEditText.getText().toString();
-			operateType = null;
+//			operateType = null;
 			inputEditText.setText("");
 		}
 		

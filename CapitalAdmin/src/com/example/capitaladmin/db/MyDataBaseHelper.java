@@ -1,5 +1,7 @@
 package com.example.capitaladmin.db;
 
+import java.io.File;
+
 import com.example.capitaladmin.common.DataCommon;
 import com.example.capitaladmin.entity.CapitalRecord;
 import com.example.capitaladmin.entity.TableEntity;
@@ -39,7 +41,7 @@ public class MyDataBaseHelper extends DataBaseHelper{
 
 	@Override
 	public String getDataBaseFilePath() {
-		return DataCommon.DB_PATH;
+		return DataCommon.DB_PATH + File.separator + DATA_BASE_NAME;
 	}
 
 	@Override

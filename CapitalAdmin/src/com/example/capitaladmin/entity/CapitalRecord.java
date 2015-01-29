@@ -18,17 +18,23 @@ import com.j256.ormlite.table.DatabaseTable;
 public class CapitalRecord implements Serializable{
  
 	private static final long serialVersionUID = 1L;
-	public final static String FOOD = "FOOD";
-	public final static String DAILY = "DAILY";
+	public final static String SUPERMARKET_SHOPPING = "SUPERMARKET_SHOPPING";
 	public final static String RESTAURANT = "RESTAURANT";
 	public final static String CLOTH = "CLOTH";
-	public final static String SHOES = "SHOES";
 	public final static String SHOPPING_ONLINE = "SHOPPING_ONLINE";
-	public final static String TICKET = "TICKET";
+	public final static String TRAVEL = "TRAVEL";
 	public final static String GIFT = "GIFT";
-	public final static String HOTEL = "HOTEL";
-	public final static String BOOKS = "BOOKS";
-	public final static String OTHERS = "OTHERS";
+	public final static String HOUSE_RENT = "HOUSE_RENT";
+	public final static String BUS_TRAFFIC = "BUS_TRAFFIC";
+	public final static String HOSPITAL = "HOSPITAL";
+	public final static String OTHERS_COST = "OTHERS_COST";
+	
+	public final static String POKET_MONEY = "POKET_MONEY";
+	public final static String YEAR_GIFT = "YEAR_GIFT";
+	public final static String SALARY = "SALARY";
+	public final static String REWARD = "REWARD";
+	public final static String LOTTERY = "LOTTERY";
+	public final static String OTHERS_INCOME = "OTHERS_INCOME";
 
 	//主键id
 	@DatabaseField(columnName = "id")

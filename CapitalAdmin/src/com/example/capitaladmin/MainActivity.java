@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import com.example.capitaladmin.base.BaseActivity;
+import com.example.capitaladmin.base.CapitalAdminApplication;
 import com.example.capitaladmin.common.DataCommon;
+import com.example.capitaladmin.common.StringUtil;
+import com.example.capitaladmin.entity.CapitalRecord;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -23,15 +26,21 @@ public class MainActivity extends BaseActivity implements OnClickListener{
 	private EditText incomeEdit;
 	private TextView dateText;
 	private Button useCalculatorBtn;
+	private Button okBtn;
 	
 	private List<TextView> costTypeList = new ArrayList<TextView>(16);
 	private List<TextView> incomeTypeList = new ArrayList<TextView>(6);
+	
+	List<String> costStringList = new ArrayList<String>();
+	List<String> incomeStringList = new ArrayList<String>();
 	
 	private int[] includeCostLayout = {R.id.first,R.id.second,R.id.third,R.id.fourth};
 	private int[] includeIncomeLayout = {R.id.first_1,R.id.second_1,};
 	
 	public final String COST_FLAG = "COST";
 	public final String INCOME_FLAG = "INCOME";
+	
+	public String type = null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +58,9 @@ public class MainActivity extends BaseActivity implements OnClickListener{
 		dateText = (TextView)findViewById(R.id.date_text);
 		useCalculatorBtn = (Button)findViewById(R.id.use_caculator);
 		useCalculatorBtn.setOnClickListener(this);
+		
+		okBtn = (Button)findViewById(R.id.ok);
+		okBtn.setOnClickListener(this);
 	}
 	
 	public void setDateText(){
@@ -139,7 +151,7 @@ public class MainActivity extends BaseActivity implements OnClickListener{
 			if(firstFlag.equals(COST_FLAG)){
 				for(int i = 0 ; i < costTypeList.size() ; i++){
 					if(i == index){
-						setTextViewState(costTypeList.get(i), mixFlag, thirdFlag);		
+						setTextViewState(costTypeList.get(i), mixFlag, thirdFlag);
 					}
 				}
 			}else{
@@ -152,10 +164,21 @@ public class MainActivity extends BaseActivity implements OnClickListener{
 		}else{
 			switch (v.getId()) {
 			case R.id.use_caculator:
+				
+				if(costInputEdit.isFocused()){
+					type = COST_FLAG;
+				}else{
+					type = INCOME_FLAG;
+				}
+				
+				CapitalAdminApplication.getContext().setCalculateType(type);
+				
 				Intent intent = new Intent(getApplicationContext() , CalculatorActivity.class);
-				startActivity(intent);
+				startActivityForResult(intent, 0);
+				break;				
+			case R.id.ok:
+				saveCostAndIncomeData();
 				break;
-
 			default:
 				break;
 			}
@@ -163,14 +186,61 @@ public class MainActivity extends BaseActivity implements OnClickListener{
 	}
 	
 	public void setTextViewState(TextView view , String flag , String thirdFlag){
-		if(thirdFlag.equals("n")){
+		String type = flag.split(":")[0];
+		int position = Integer.parseInt(flag.split(":")[1]);
+		boolean isChoosed = false;
+		if(thirdFlag.equals("n")){//选中
 			view.setTextColor(Color.BLACK);
 			view.setBackgroundResource(R.drawable.button_white);
-			view.setTag(flag + "y");
-		}else{
+			view.setTag(flag + "y");	
+			isChoosed = true;
+		}else{//未选中
 			view.setTextColor(Color.WHITE);
 			view.setBackgroundResource(R.drawable.button_light);
 			view.setTag(flag + "n");
-		}	
+			isChoosed = false;
+		}
+		
+		if(INCOME_FLAG.equals(type)){
+			if(!isChoosed){
+				incomeStringList.remove(DataCommon.INCOME_TYPE_DATA[position]);
+			}else{
+				incomeStringList.add(DataCommon.INCOME_TYPE_DATA[position]);
+			}
+			System.out.println(incomeStringList.toString());
+		}else{
+			if(!isChoosed){
+				costStringList.remove(DataCommon.COST_TYPE_DATA[position]);
+			}else{
+				costStringList.add(DataCommon.COST_TYPE_DATA[position]);
+			}
+			System.out.println(costStringList.toString());
+		}
 	}
+	
+	public void saveCostAndIncomeData(){
+		
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if(resultCode == 0){
+			String result = data.getExtras().getString(CalculatorActivity.RESULT);
+			
+			if(StringUtil.isEmpty(result)){
+				return;
+			}
+			
+			String type = CapitalAdminApplication.getContext().getCalculateType();
+			if(INCOME_FLAG.equals(type)){
+				incomeEdit.setText(result);
+				incomeEdit.setSelection(result.length());
+			}else{
+				costInputEdit.setText(result);
+				costInputEdit.setSelection(result.length());
+			}			
+		}
+	}
+	
 }

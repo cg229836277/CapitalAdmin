@@ -16,6 +16,7 @@ public class CapitalAdminApplication extends Application {
 	
 	public static CapitalAdminApplication appContext;
 	public DisplayMetrics screenSize;
+	public String calculateType;
 	
 	@Override
 	public void onCreate() {
@@ -48,5 +49,13 @@ public class CapitalAdminApplication extends Application {
 	 */
 	public void setScreenSize(DisplayMetrics screenSize) {
 		this.screenSize = screenSize;
+	}
+
+	public String getCalculateType() {
+		return calculateType;
+	}
+
+	public void setCalculateType(String calculateType) {
+		this.calculateType = calculateType;
 	}
 }
