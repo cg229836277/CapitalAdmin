@@ -171,6 +171,11 @@ public class CalculatorActivity extends BaseActivity implements OnClickListener{
 		if(StringUtil.isEmpty(operatedNumber)){
 			return;
 		}
+		
+		if(StringUtil.isEmpty(operateNumber)){
+			return;
+		}
+		
 		int addedNumber = Integer.valueOf(operatedNumber);
 		int addNumber = Integer.valueOf(operateNumber);
 		int addition = addedNumber + addNumber;

@@ -2,11 +2,18 @@ package com.example.capitaladmin;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
+
 import com.example.capitaladmin.base.BaseActivity;
 import com.example.capitaladmin.base.CapitalAdminApplication;
 import com.example.capitaladmin.common.DataCommon;
+import com.example.capitaladmin.common.GenerateId;
+import com.example.capitaladmin.common.IsListNotNull;
 import com.example.capitaladmin.common.StringUtil;
+import com.example.capitaladmin.dao.CapitalRecordDao;
+import com.example.capitaladmin.dao.impl.CapitalRecordDaoImpl;
 import com.example.capitaladmin.entity.CapitalRecord;
 
 import android.content.Intent;
@@ -19,6 +26,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends BaseActivity implements OnClickListener{
 
@@ -40,7 +48,15 @@ public class MainActivity extends BaseActivity implements OnClickListener{
 	public final String COST_FLAG = "COST";
 	public final String INCOME_FLAG = "INCOME";
 	
+	public final String OK_BTN = "确定";
+	public final String COUNT_LIST = "查看账单";
+	
 	public String type = null;
+	
+	String year;//年
+	String month;//月
+	String day;//日
+	String week;//星期
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -65,10 +81,10 @@ public class MainActivity extends BaseActivity implements OnClickListener{
 	
 	public void setDateText(){
 		Calendar cal = Calendar.getInstance();
-		String year = String.valueOf(cal.get(Calendar.YEAR));
-		String month = String.valueOf(cal.get(Calendar.MONTH) + 1);
-		String day = String.valueOf(cal.get(Calendar.DAY_OF_MONTH));
-		String week = String.valueOf(cal.get(Calendar.DAY_OF_WEEK));
+		year = String.valueOf(cal.get(Calendar.YEAR));
+		month = String.valueOf(cal.get(Calendar.MONTH) + 1);
+		day = String.valueOf(cal.get(Calendar.DAY_OF_MONTH));
+		week = String.valueOf(cal.get(Calendar.DAY_OF_WEEK));
 		String weekString = "星期";
 		
         if("1".equals(week)){  
@@ -177,7 +193,12 @@ public class MainActivity extends BaseActivity implements OnClickListener{
 				startActivityForResult(intent, 0);
 				break;				
 			case R.id.ok:
-				saveCostAndIncomeData();
+				if(OK_BTN.equals(okBtn.getText().toString())){
+					saveCostAndIncomeData();
+				}else{
+					Intent countListIntent = new Intent(getApplicationContext(), CountListActivity.class);
+					startActivityForResult(countListIntent, 1);
+				}				
 				break;
 			default:
 				break;
@@ -220,6 +241,65 @@ public class MainActivity extends BaseActivity implements OnClickListener{
 	
 	public void saveCostAndIncomeData(){
 		
+		CapitalRecordDao dataDao = new CapitalRecordDaoImpl(getApplicationContext());
+		
+		String incomeMoney = incomeEdit.getText().toString();
+		String costMoney = costInputEdit.getText().toString();
+		
+		boolean isSaved = false;
+		
+		if(!StringUtil.isEmpty(incomeMoney)){
+			if(!incomeMoney.equals("0")){
+				if(IsListNotNull.isListNotNull(incomeStringList)){
+					CapitalRecord recordData = new CapitalRecord();
+					recordData.setId(GenerateId.sequenceId());
+					recordData.setCount(incomeMoney);
+					recordData.setType(INCOME_FLAG);			
+					Date date = new Date();		
+					recordData.setTime(String.valueOf(date.getTime()));
+					recordData.setYear(year);
+					recordData.setMonth(month);
+					recordData.setWeek(week);
+					recordData.setDay(day);
+					
+					int result = dataDao.saveOrUpdate(recordData);
+					if(result != 0){
+						isSaved = true;
+						Toast.makeText(getApplicationContext(), "记账成功！", Toast.LENGTH_LONG).show();
+						okBtn.setText("查看账单");
+					}
+				}else{							
+					Toast.makeText(getApplicationContext(), "请选择收入类型！", Toast.LENGTH_LONG).show();
+					return;
+				}
+			}
+		}
+		
+		if(!StringUtil.isEmpty(costMoney)){
+			if(!costMoney.equals("0")){
+				if(IsListNotNull.isListNotNull(costStringList)){
+					CapitalRecord recordData = new CapitalRecord();
+					recordData.setId(GenerateId.sequenceId());
+					recordData.setCount(incomeMoney);
+					recordData.setType(COST_FLAG);			
+					Date date = new Date();		
+					recordData.setTime(String.valueOf(date.getTime()));
+					recordData.setYear(year);
+					recordData.setMonth(month);
+					recordData.setWeek(week);
+					recordData.setDay(day);
+					
+					int result = dataDao.saveOrUpdate(recordData);
+					if(result != 0 && !isSaved){
+						Toast.makeText(getApplicationContext(), "记账成功！", Toast.LENGTH_LONG).show();
+						okBtn.setText("查看账单");
+					}
+				}else{							
+					Toast.makeText(getApplicationContext(), "请选择支出类型！", Toast.LENGTH_LONG).show();
+					return;
+				}
+			}
+		}
 	}
 	
 	@Override
@@ -240,6 +320,8 @@ public class MainActivity extends BaseActivity implements OnClickListener{
 				costInputEdit.setText(result);
 				costInputEdit.setSelection(result.length());
 			}			
+		}else if(requestCode == 1){
+			
 		}
 	}
 	

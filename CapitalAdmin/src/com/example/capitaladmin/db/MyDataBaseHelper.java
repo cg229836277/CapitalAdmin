@@ -41,7 +41,12 @@ public class MyDataBaseHelper extends DataBaseHelper{
 
 	@Override
 	public String getDataBaseFilePath() {
-		return DataCommon.DB_PATH + File.separator + DATA_BASE_NAME;
+		String filePath = DataCommon.DB_PATH + File.separator;
+		File file = new File(filePath);
+		if(!file.exists()){
+			file.mkdirs();
+		}
+		return filePath + DATA_BASE_NAME;
 	}
 
 	@Override

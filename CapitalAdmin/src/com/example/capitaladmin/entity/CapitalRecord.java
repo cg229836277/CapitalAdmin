@@ -48,10 +48,26 @@ public class CapitalRecord implements Serializable{
 	@DatabaseField(columnName = "time")
 	private String time;
 	
+	//支出年
+	@DatabaseField(columnName = "year")
+	private String year;
+	
+	//支出月
+	@DatabaseField(columnName = "month")
+	private String month;
+	
+	//支出星期
+	@DatabaseField(columnName = "week")
+	private String week;
+	
+	//支出日
+	@DatabaseField(columnName = "day")
+	private String day;
+	
 	//支出金额
 	@DatabaseField(columnName = "count")
 	private String count;
-	
+	 
 	//支出人
 	@DatabaseField(columnName = "people")
 	private String people;
@@ -59,4 +75,84 @@ public class CapitalRecord implements Serializable{
 	//支出地点
 	@DatabaseField(columnName = "place")
 	private String place;
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getTime() {
+		return time;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
+	}
+
+	public String getCount() {
+		return count;
+	}
+
+	public void setCount(String count) {
+		this.count = count;
+	}
+
+	public String getPeople() {
+		return people;
+	}
+
+	public void setPeople(String people) {
+		this.people = people;
+	}
+
+	public String getPlace() {
+		return place;
+	}
+
+	public void setPlace(String place) {
+		this.place = place;
+	}
+
+	public String getYear() {
+		return year;
+	}
+
+	public void setYear(String year) {
+		this.year = year;
+	}
+
+	public String getMonth() {
+		return month;
+	}
+
+	public void setMonth(String month) {
+		this.month = month;
+	}
+
+	public String getWeek() {
+		return week;
+	}
+
+	public void setWeek(String week) {
+		this.week = week;
+	}
+
+	public String getDay() {
+		return day;
+	}
+
+	public void setDay(String day) {
+		this.day = day;
+	}
 }
