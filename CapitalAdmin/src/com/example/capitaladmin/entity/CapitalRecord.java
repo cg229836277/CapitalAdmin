@@ -14,7 +14,7 @@ import com.j256.ormlite.table.DatabaseTable;
  * @version 1.0
  */
 
-@DatabaseTable(tableName = "sys_attachment")
+@DatabaseTable(tableName = "capital_record")
 public class CapitalRecord implements Serializable{
  
 	private static final long serialVersionUID = 1L;
@@ -37,12 +37,16 @@ public class CapitalRecord implements Serializable{
 	public final static String OTHERS_INCOME = "OTHERS_INCOME";
 
 	//主键id
-	@DatabaseField(columnName = "id")
+	@DatabaseField(id = true)
 	private String id;
 	
 	//支出类型
 	@DatabaseField(columnName = "type")
 	private String type;
+	
+	//支出的组成部分
+	@DatabaseField(columnName = "cost_type")
+	private String costType;
 	
 	//支出时间
 	@DatabaseField(columnName = "time")
@@ -154,5 +158,13 @@ public class CapitalRecord implements Serializable{
 
 	public void setDay(String day) {
 		this.day = day;
+	}
+
+	public String getCostType() {
+		return costType;
+	}
+
+	public void setCostType(String costType) {
+		this.costType = costType;
 	}
 }

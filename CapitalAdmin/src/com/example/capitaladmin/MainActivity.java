@@ -261,6 +261,7 @@ public class MainActivity extends BaseActivity implements OnClickListener{
 					recordData.setMonth(month);
 					recordData.setWeek(week);
 					recordData.setDay(day);
+					recordData.setCostType(incomeStringList.toString());
 					
 					int result = dataDao.saveOrUpdate(recordData);
 					if(result != 0){
@@ -280,7 +281,7 @@ public class MainActivity extends BaseActivity implements OnClickListener{
 				if(IsListNotNull.isListNotNull(costStringList)){
 					CapitalRecord recordData = new CapitalRecord();
 					recordData.setId(GenerateId.sequenceId());
-					recordData.setCount(incomeMoney);
+					recordData.setCount(costMoney);
 					recordData.setType(COST_FLAG);			
 					Date date = new Date();		
 					recordData.setTime(String.valueOf(date.getTime()));
@@ -288,6 +289,7 @@ public class MainActivity extends BaseActivity implements OnClickListener{
 					recordData.setMonth(month);
 					recordData.setWeek(week);
 					recordData.setDay(day);
+					recordData.setCostType(costStringList.toString());
 					
 					int result = dataDao.saveOrUpdate(recordData);
 					if(result != 0 && !isSaved){
@@ -305,7 +307,7 @@ public class MainActivity extends BaseActivity implements OnClickListener{
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		if(resultCode == 0){
+		if(requestCode == 0){
 			String result = data.getExtras().getString(CalculatorActivity.RESULT);
 			
 			if(StringUtil.isEmpty(result)){
@@ -321,7 +323,7 @@ public class MainActivity extends BaseActivity implements OnClickListener{
 				costInputEdit.setSelection(result.length());
 			}			
 		}else if(requestCode == 1){
-			
+			okBtn.setText("确认");
 		}
 	}
 	
