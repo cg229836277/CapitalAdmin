@@ -39,6 +39,8 @@ public class DataCommon {
 	public final static String LOTTERY = "LOTTERY";
 	public final static String OTHERS_INCOME = "OTHERS_INCOME";
 	
+	public final static String[] SEARCH_TYPE = {"本年度", "本季度" , "本月" , "本周"};
+	
 	public final static String[] COSTTYPE = {"超市购物" , "下馆子" , "服装" , 
 		"在线购物" , "旅行费用" , "礼物" , "房租水电" , "公共交通" , "医药费" , "其他"};
 	

@@ -39,7 +39,6 @@
         </activity>
         <activity
             android:name=".CountListActivity"
-            android:label="@string/title_activity_count_list" 
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar">
         </activity>

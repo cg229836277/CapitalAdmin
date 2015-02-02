@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="count_list_spinner_text_size">20sp</dimen>
-    <dimen name="spinner_item_parent_view_margin_left">8sp</dimen>
+    <dimen name="spinner_item_parent_view_margin_left">8dp</dimen>
+    <dimen name="count_list_spinner_parent_view_height">48dp</dimen>
 </resources>
