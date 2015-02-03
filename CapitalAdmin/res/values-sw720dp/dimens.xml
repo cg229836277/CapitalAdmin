@@ -3,4 +3,8 @@
     <dimen name="count_list_spinner_text_size">24sp</dimen>
     <dimen name="spinner_item_parent_view_margin_left">12dp</dimen>
     <dimen name="count_list_spinner_parent_view_height">56dp</dimen>
+    <dimen name="main_menu_popwindow_padding">32dp</dimen>
+    <dimen name="main_menu_popwindow_margin">8dp</dimen>
+    <dimen name="main_menu_title_text_size">36sp</dimen>
+    <dimen name="cost_income_text_size">22sp</dimen>
 </resources>

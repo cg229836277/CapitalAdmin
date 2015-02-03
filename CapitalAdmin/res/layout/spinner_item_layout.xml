@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@android:color/transparent"
+    android:background="#0075F6"
     android:layout_marginLeft="@dimen/spinner_item_parent_view_margin_left"
     android:orientation="vertical" >
     
@@ -14,5 +14,4 @@
         android:textColor="@android:color/white"
         android:gravity="center"
         android:text="Spinner的子项"/>
-
 </LinearLayout>

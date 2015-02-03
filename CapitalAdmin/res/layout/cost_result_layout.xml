@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/spinner_item_parent_view_margin_left"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/supermarket"
+            style="@style/CostIncomeTextStyle"
+            android:text="超市购物:" />
+
+        <TextView
+            android:id="@+id/values_cost_1"
+            style="@style/CostIncomeTextStyle"
+            android:text="0" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/spinner_item_parent_view_margin_left"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/restraunt"
+            style="@style/CostIncomeTextStyle"
+            android:text="下馆子:" />
+
+        <TextView
+            android:id="@+id/values_cost_2"
+            style="@style/CostIncomeTextStyle"
+            android:text="0" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/spinner_item_parent_view_margin_left"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/cloth"
+            style="@style/CostIncomeTextStyle"
+            android:text="服装:" />
+
+        <TextView
+            android:id="@+id/values_cost_3"
+            style="@style/CostIncomeTextStyle"
+            android:text="0" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/spinner_item_parent_view_margin_left"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/shopping_online"
+            style="@style/CostIncomeTextStyle"
+            android:text="在线购物:" />
+
+        <TextView
+            android:id="@+id/values_cost_4"
+            style="@style/CostIncomeTextStyle"
+            android:text="0" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/spinner_item_parent_view_margin_left"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/travel"
+            style="@style/CostIncomeTextStyle"
+            android:text="旅行费用:" />
+
+        <TextView
+            android:id="@+id/values_cost_5"
+            style="@style/CostIncomeTextStyle"
+            android:text="0" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/spinner_item_parent_view_margin_left"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/gift"
+            style="@style/CostIncomeTextStyle"
+            android:text="礼物:" />
+
+        <TextView
+            android:id="@+id/values_cost_6"
+            style="@style/CostIncomeTextStyle"
+            android:text="0" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/spinner_item_parent_view_margin_left"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/rent"
+            style="@style/CostIncomeTextStyle"
+            android:text="房租水电:" />
+
+        <TextView
+            android:id="@+id/values_cost_7"
+            style="@style/CostIncomeTextStyle"
+            android:text="0" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/spinner_item_parent_view_margin_left"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/bus"
+            style="@style/CostIncomeTextStyle"
+            android:text="公共交通:" />
+
+        <TextView
+            android:id="@+id/values_cost_8"
+            style="@style/CostIncomeTextStyle"
+            android:text="0" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/spinner_item_parent_view_margin_left"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/hospital"
+            style="@style/CostIncomeTextStyle"
+            android:text="医药费:" />
+
+        <TextView
+            android:id="@+id/values_cost_9"
+            style="@style/CostIncomeTextStyle"
+            android:text="0" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/spinner_item_parent_view_margin_left"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/others"
+            style="@style/CostIncomeTextStyle"
+            android:text="其他:" />
+
+        <TextView
+            android:id="@+id/values_cost_10"
+            style="@style/CostIncomeTextStyle"
+            android:text="0" />
+    </LinearLayout>
+
+</LinearLayout>

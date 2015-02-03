@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/main_menu_popwindow_margin"
+    android:background="@drawable/item_white"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/main_menu_popwindow_padding" >
+
+    <Button
+        android:id="@+id/shareSheet"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@android:color/transparent"
+        android:text="分享账单"
+        android:textColor="@color/blue_deep"
+        android:textSize="@dimen/count_list_spinner_text_size" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/blue_deep" />
+
+    <Button
+        android:id="@+id/uploadLocalSheet"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@android:color/transparent"
+        android:text="同步本地账单到云"
+        android:textColor="@color/blue_deep"
+        android:textSize="@dimen/count_list_spinner_text_size" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/blue_deep" />
+
+    <Button
+        android:id="@+id/scan_local_count_sheet"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@android:color/transparent"
+        android:text="查看本地账单"
+        android:textColor="@color/blue_deep"
+        android:textSize="@dimen/count_list_spinner_text_size" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/blue_deep" />
+
+    <Button
+        android:id="@+id/scan_remote_count_sheet"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@android:color/transparent"
+        android:text="查看网络账单"
+        android:textColor="@color/blue_deep"
+        android:textSize="@dimen/count_list_spinner_text_size" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/blue_deep" />
+
+    <Button
+        android:id="@+id/setting"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@android:color/transparent"
+        android:text="设置"
+        android:textColor="@color/blue_deep"
+        android:textSize="@dimen/count_list_spinner_text_size" />
+
+</LinearLayout>

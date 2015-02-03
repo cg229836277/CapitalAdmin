@@ -48,15 +48,14 @@ public class MainActivity extends BaseActivity implements OnClickListener{
 	public final String COST_FLAG = "COST";
 	public final String INCOME_FLAG = "INCOME";
 	
-	public final String OK_BTN = "确定";
-	public final String COUNT_LIST = "查看账单";
-	
 	public String type = null;
 	
 	String year;//年
 	String month;//月
 	String day;//日
 	String week;//星期
+	
+	private TextView menuTextView;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +76,9 @@ public class MainActivity extends BaseActivity implements OnClickListener{
 		
 		okBtn = (Button)findViewById(R.id.ok);
 		okBtn.setOnClickListener(this);
+		
+		menuTextView = (TextView)findViewById(R.id.main_menu_setting_text);
+		menuTextView.setOnClickListener(this);
 	}
 	
 	public void setDateText(){
@@ -193,12 +195,11 @@ public class MainActivity extends BaseActivity implements OnClickListener{
 				startActivityForResult(intent, 0);
 				break;				
 			case R.id.ok:
-				if(OK_BTN.equals(okBtn.getText().toString())){
-					saveCostAndIncomeData();
-				}else{
-					Intent countListIntent = new Intent(getApplicationContext(), CountListActivity.class);
-					startActivityForResult(countListIntent, 1);
-				}				
+					saveCostAndIncomeData();			
+				break;
+			case R.id.main_menu_setting_text:
+				hideInputMethod(v);
+				showPopWindow(v);
 				break;
 			default:
 				break;
@@ -322,8 +323,6 @@ public class MainActivity extends BaseActivity implements OnClickListener{
 				costInputEdit.setText(result);
 				costInputEdit.setSelection(result.length());
 			}			
-		}else if(requestCode == 1){
-			okBtn.setText("确认");
 		}
 	}
 	

@@ -19,9 +19,8 @@ import android.widget.SpinnerAdapter;
 public class SpinnerAdapterFactory {
 	
 	private static Context context = CapitalAdminApplication.getContext();
-	public static SpinnerAdapter getAdapter(Object[] items){ 
-		ArrayAdapter<Object> adapter = new ArrayAdapter<Object>(context, R.layout.spinner_item_layout, R.id.spinner_item_text, items);
+	public static SpinnerAdapter getAdapter(String[] items){ 
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, R.layout.spinner_item_layout, R.id.spinner_item_text, items);
 		return adapter;
 	}
-
 }

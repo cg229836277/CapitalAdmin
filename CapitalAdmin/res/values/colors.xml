@@ -4,4 +4,6 @@
     <color name="pull_refresh_textview">#000000</color>
     <color name="gold">#000000</color>
     <color name="transparent">#00000000</color>
+    <color name="blue_deep">#0075F6</color>    
+    <color name="white">#ffffff</color>    
 </resources>

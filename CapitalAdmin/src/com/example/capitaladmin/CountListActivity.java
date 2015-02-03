@@ -17,7 +17,6 @@ public class CountListActivity extends Activity {
 
 	private Spinner typeSpinner;
 	private SpinnerAdapter adapter;
-	private CustomListView listView;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +43,6 @@ public class CountListActivity extends Activity {
 			}
 			
 		});
-		
-		listView = (CustomListView)findViewById(R.id.count_list_view);
 	}
 	
 	public void searchTypeData(){

@@ -4,48 +4,79 @@
     android:layout_height="match_parent"
     android:background="#ffffff" >
 
-    <LinearLayout
-        android:id="@+id/parent_view"       
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/item"
-        android:orientation="vertical" >
+        android:background="@drawable/item" >
 
         <LinearLayout
-            android:id="@+id/count_list_title"
+            android:id="@+id/parent_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/spinner_item_parent_view_margin_left"
-            android:minHeight="@dimen/count_list_spinner_parent_view_height"
-            android:orientation="horizontal" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="请选择查看账本的类型:"
-                android:textColor="#000000"
-                android:textSize="@dimen/count_list_spinner_text_size" />
-
-            <Spinner
-                android:id="@+id/count_type_spinner"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="6dp"
-                android:layout_weight="1"
-                android:background="@drawable/count_list_spinner_choose_state" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/cost_income_summary_parent_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/spinner_item_parent_view_margin_left"
             android:orientation="vertical" >
-        </LinearLayout>
-    </LinearLayout>
 
-    <com.example.capitaladmin.view.CustomListView
+            <LinearLayout
+                android:id="@+id/count_list_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/spinner_item_parent_view_margin_left"
+                android:minHeight="@dimen/count_list_spinner_parent_view_height"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="请选择查看账本的类型:"
+                    android:textColor="#000000"
+                    android:textSize="@dimen/count_list_spinner_text_size" />
+
+                <Spinner
+                    android:id="@+id/count_type_spinner"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="6dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/count_list_spinner_choose_state" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/cost_summary_parent_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/spinner_item_parent_view_margin_left"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="本年度支出合计是:"
+                    android:textColor="@color/blue_deep"
+                    android:textSize="@dimen/count_list_spinner_text_size" />
+
+                <include layout="@layout/cost_result_layout" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/income_summary_parent_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/spinner_item_parent_view_margin_left"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="本年度收入合计是:"
+                    android:textColor="@color/blue_deep"
+                    android:textSize="@dimen/count_list_spinner_text_size" />
+
+                <include layout="@layout/income_result_layout" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- com.example.capitaladmin.view.CustomListView
         android:id="@+id/count_list_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -53,6 +84,5 @@
         android:layout_marginBottom="@dimen/spinner_item_parent_view_margin_left"
         android:layout_marginLeft="@dimen/spinner_item_parent_view_margin_left"
         android:layout_marginRight="@dimen/spinner_item_parent_view_margin_left"
-        android:dividerHeight="2dp" />
-
+        android:dividerHeight="2dp"  -->
 </RelativeLayout>

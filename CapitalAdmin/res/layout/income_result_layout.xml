@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/spinner_item_parent_view_margin_left"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/pokect"
+            style="@style/CostIncomeTextStyle"
+            android:text="零花钱:" />
+
+        <TextView
+            android:id="@+id/values_cost_11"
+            style="@style/CostIncomeTextStyle"
+            android:text="0" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/spinner_item_parent_view_margin_left"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/year_money"
+            style="@style/CostIncomeTextStyle"
+            android:text="压岁钱:" />
+
+        <TextView
+            android:id="@+id/values_cost_12"
+            style="@style/CostIncomeTextStyle"
+            android:text="0" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/spinner_item_parent_view_margin_left"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/salary"
+            style="@style/CostIncomeTextStyle"
+            android:text="工资:" />
+
+        <TextView
+            android:id="@+id/values_cost_13"
+            style="@style/CostIncomeTextStyle"
+            android:text="0" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/spinner_item_parent_view_margin_left"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/reward"
+            style="@style/CostIncomeTextStyle"
+            android:text="奖金:" />
+
+        <TextView
+            android:id="@+id/values_cost_14"
+            style="@style/CostIncomeTextStyle"
+            android:text="0" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/spinner_item_parent_view_margin_left"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/lottery"
+            style="@style/CostIncomeTextStyle"
+            android:text="彩票:" />
+
+        <TextView
+            android:id="@+id/values_cost_15"
+            style="@style/CostIncomeTextStyle"
+            android:text="0" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/spinner_item_parent_view_margin_left"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/income_others"
+            style="@style/CostIncomeTextStyle"
+            android:text="其他:" />
+
+        <TextView
+            android:id="@+id/values_cost_16"
+            style="@style/CostIncomeTextStyle"
+            android:text="0" />
+    </LinearLayout>  
+</LinearLayout>
