@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">CapitalAdmin</string>   
+    <string name="app_name">CapitalAdmin</string>
     <string name="p2refresh_head_load_more">加载更多</string>
     <string name="p2refresh_end_load_more">更    多</string>
     <string name="p2refresh_end_click_load_more">点击加载</string>
@@ -9,5 +9,8 @@
     <string name="p2refresh_pull_to_refresh">下拉刷新</string>
     <string name="p2refresh_doing_head_refresh">正在刷新...</string>
     <string name="p2refresh_doing_end_refresh">加载中...</string>
-    <string name="p2refresh_refresh_lasttime">最近更新</string>	
+    <string name="p2refresh_refresh_lasttime">最近更新</string>
+    <string name="title_activity_count_list_detail">CountListDetailActivity</string>
+    <string name="hello_world">Hello world!</string>
+
 </resources>

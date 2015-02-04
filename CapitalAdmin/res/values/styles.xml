@@ -18,8 +18,8 @@
     <style name="CustomCheckboxTheme" parent="@android:style/Widget.CompoundButton.CheckBox">
         <item name="android:button">@drawable/cost_type_choose_state</item>
     </style>
-    
-        <style name="CostIncomeTextStyle" parent="@android:style/Widget.TextView">
+
+    <style name="CostIncomeTextStyle" parent="@android:style/Widget.TextView">
         <item name="android:textSize">@dimen/cost_income_text_size</item>
         <item name="android:textColor">@color/blue_deep</item>
         <item name="android:layout_marginLeft">4dp</item>
@@ -28,10 +28,20 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
+    <style name="CostBottomButtonStyle" parent="@android:style/Widget.Button">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">12dp</item>
+        <item name="android:background">@drawable/button_selector</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
     <!--
     <style name="CustomTextViewTheme" parent="@android:style/Widget.TextView">
         <item name="android:button">@drawable/cost_income_type_choose_state</item>  
-    </style>
+    </style>
     -->
 
 </resources>

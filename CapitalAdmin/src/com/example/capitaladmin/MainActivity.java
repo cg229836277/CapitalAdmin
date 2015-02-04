@@ -308,7 +308,7 @@ public class MainActivity extends BaseActivity implements OnClickListener{
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		if(requestCode == 0){
+		if(requestCode == 0 && data != null){
 			String result = data.getExtras().getString(CalculatorActivity.RESULT);
 			
 			if(StringUtil.isEmpty(result)){

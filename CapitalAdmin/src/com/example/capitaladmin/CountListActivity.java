@@ -5,11 +5,14 @@ import com.example.capitaladmin.common.SpinnerAdapterFactory;
 import com.example.capitaladmin.view.CustomListView;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 
@@ -17,6 +20,7 @@ public class CountListActivity extends Activity {
 
 	private Spinner typeSpinner;
 	private SpinnerAdapter adapter;
+	private Button detailBtn;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +46,16 @@ public class CountListActivity extends Activity {
 				
 			}
 			
+		});
+		
+		detailBtn = (Button)findViewById(R.id.scan_detail_list);
+		detailBtn.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				Intent intent = new Intent(getApplicationContext(), CountListActivity.class);
+				startActivity(intent);
+			}
 		});
 	}
 	
