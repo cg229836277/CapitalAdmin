@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
-
 import com.example.capitaladmin.base.BaseActivity;
 import com.example.capitaladmin.base.CapitalAdminApplication;
 import com.example.capitaladmin.common.DataCommon;
@@ -24,7 +22,6 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
