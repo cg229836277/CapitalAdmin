@@ -1,5 +1,6 @@
 package com.example.capitaladmin;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -9,19 +10,26 @@ import com.example.capitaladmin.base.CapitalAdminApplication;
 import com.example.capitaladmin.common.DataCommon;
 import com.example.capitaladmin.common.GenerateId;
 import com.example.capitaladmin.common.IsListNotNull;
+import com.example.capitaladmin.common.SpinnerAdapterFactory;
 import com.example.capitaladmin.common.StringUtil;
 import com.example.capitaladmin.dao.CapitalRecordDao;
 import com.example.capitaladmin.dao.impl.CapitalRecordDaoImpl;
 import com.example.capitaladmin.entity.CapitalRecord;
+import com.example.capitaladmin.view.MyToastDialog;
 
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,18 +40,22 @@ public class MainActivity extends BaseActivity implements OnClickListener{
 	private TextView dateText;
 	private Button useCalculatorBtn;
 	private Button okBtn;
+	private Spinner incomeTypeSpinner;
+	private Spinner costTypeSpinner;
+	private Button addCostItemButton;
+	private Button addIncomeItemButton;
 	
-	private List<TextView> costTypeList = new ArrayList<TextView>(16);
-	private List<TextView> incomeTypeList = new ArrayList<TextView>(6);
+	private LinearLayout incomeItemContainer;
+	private LinearLayout costItemContainer;
 	
-	List<String> costStringList = new ArrayList<String>();
-	List<String> incomeStringList = new ArrayList<String>();
-	
-	private int[] includeCostLayout = {R.id.first,R.id.second,R.id.third,R.id.fourth};
-	private int[] includeIncomeLayout = {R.id.first_1,R.id.second_1,};
+	private SpinnerAdapter costAdapter , incomeAdapter;
+		
+	List<CapitalRecord> recordDataList = new ArrayList<CapitalRecord>();
 	
 	public final String COST_FLAG = "COST";
 	public final String INCOME_FLAG = "INCOME";
+	
+	private LayoutInflater inflater;
 	
 	public String type = null;
 	
@@ -54,14 +66,24 @@ public class MainActivity extends BaseActivity implements OnClickListener{
 	
 	private TextView menuTextView;
 	
+	private String costType = null;
+	private String costCount = null;
+	
+	private String incomeType = null;
+	private String incomeCount = null;
+	
+	private int costIndex = 0;
+	private int incomeIndex = 0;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
+		inflater = LayoutInflater.from(getApplicationContext());
+		
 		bindEvent();
 		setDateText();
-		setTextViewData();
 	}
 	
 	public void bindEvent(){
@@ -74,8 +96,61 @@ public class MainActivity extends BaseActivity implements OnClickListener{
 		okBtn = (Button)findViewById(R.id.ok);
 		okBtn.setOnClickListener(this);
 		
+		addCostItemButton = (Button)findViewById(R.id.add_cost_item_button);
+		addCostItemButton.setOnClickListener(this);
+		
+		addIncomeItemButton = (Button)findViewById(R.id.add_income_item_button);
+		addIncomeItemButton.setOnClickListener(this);
+		
 		menuTextView = (TextView)findViewById(R.id.main_menu_setting_text);
 		menuTextView.setOnClickListener(this);
+		
+		incomeItemContainer = (LinearLayout)findViewById(R.id.income_item_container);
+		costItemContainer = (LinearLayout)findViewById(R.id.cost_item_container);
+		
+		costTypeSpinner = (Spinner)findViewById(R.id.cost_item_name_spinner);
+		incomeTypeSpinner = (Spinner)findViewById(R.id.income_item_name_spinner);
+		costAdapter = SpinnerAdapterFactory.getAdapter(DataCommon.COSTTYPE);
+		incomeAdapter = SpinnerAdapterFactory.getAdapter(DataCommon.INCOMTYPE);
+		
+		costTypeSpinner.setAdapter(costAdapter);
+		incomeTypeSpinner.setAdapter(incomeAdapter);
+		
+		costTypeSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+			@Override
+			public void onItemSelected(AdapterView<?> arg0, View arg1,int arg2, long arg3) {
+				if(arg2 == 0){
+					costType = null;
+				}else{
+					costType = DataCommon.COSTTYPE[arg2];
+					costIndex = arg2 - 1;
+				}
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+				
+			}
+		});
+		
+		incomeTypeSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+			@Override
+			public void onItemSelected(AdapterView<?> arg0, View arg1,int arg2, long arg3) {
+				if(arg2 == 0){
+					incomeType = null;
+				}else{
+					incomeType = DataCommon.COSTTYPE[arg2];
+					incomeIndex = arg2 - 1;
+				}
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+				
+			}
+		});
 	}
 	
 	public void setDateText(){
@@ -106,200 +181,134 @@ public class MainActivity extends BaseActivity implements OnClickListener{
 		dateText.setText(date);
 	}
 	
-	public void setTextViewData(){
-		for(int i = 0 ; i < includeCostLayout.length ; i++){
-			LinearLayout currentLayout = (LinearLayout)findViewById(includeCostLayout[i]);
-			TextView first = (TextView)currentLayout.findViewById(R.id.first_text);
-			TextView second = (TextView)currentLayout.findViewById(R.id.second_text);
-			TextView third = (TextView)currentLayout.findViewById(R.id.third_text);
-			costTypeList.add(first);
-			costTypeList.add(second);
-			costTypeList.add(third);
-		}
-		
-		int typeCount = DataCommon.COSTTYPE.length;
-		
-		for(int m = 0; m < costTypeList.size() ; m++){
-			if(m >= typeCount){
-				costTypeList.remove(m);
-			}else{
-				costTypeList.get(m).setTag(COST_FLAG + ":" + m + ":" + "n");
-				costTypeList.get(m).setVisibility(View.VISIBLE);
-				costTypeList.get(m).setText(DataCommon.COSTTYPE[m]);
-				costTypeList.get(m).setOnClickListener(this);
-			}
-		}
-		
-		for(int j = 0 ; j < includeIncomeLayout.length ; j++){
-			LinearLayout currentIncomeLayout = (LinearLayout)findViewById(includeIncomeLayout[j]);
-			TextView first_1 = (TextView)currentIncomeLayout.findViewById(R.id.first_text);
-			TextView second_2 = (TextView)currentIncomeLayout.findViewById(R.id.second_text);
-			TextView third_3 = (TextView)currentIncomeLayout.findViewById(R.id.third_text);
-			incomeTypeList.add(first_1);
-			incomeTypeList.add(second_2);
-			incomeTypeList.add(third_3);
-		}
-		
-		int incomeTypeCount = DataCommon.INCOMTYPE.length;
-		
-		for(int n = 0; n < incomeTypeList.size() ; n++){
-			if(n >= incomeTypeCount){
-				incomeTypeList.remove(n);
-			}else{
-				incomeTypeList.get(n).setTag(INCOME_FLAG + ":" + n + ":" + "n");
-				incomeTypeList.get(n).setVisibility(View.VISIBLE);
-				incomeTypeList.get(n).setText(DataCommon.INCOMTYPE[n]);
-				incomeTypeList.get(n).setOnClickListener(this);
-			}
-		}
-	}
-
 	@Override
 	public void onClick(View v) {
-		String tag = (String)v.getTag();
-		if(tag != null && tag.contains(":")){			
-			String firstFlag = tag.split(":")[0];
-			String secondFlag = tag.split(":")[1];
-			String thirdFlag = tag.split(":")[2];
-			String mixFlag = firstFlag + ":" + secondFlag + ":";
-			Integer index = Integer.parseInt(secondFlag);
-			if(firstFlag.equals(COST_FLAG)){
-				for(int i = 0 ; i < costTypeList.size() ; i++){
-					if(i == index){
-						setTextViewState(costTypeList.get(i), mixFlag, thirdFlag);
-					}
-				}
+		switch (v.getId()) {
+		case R.id.use_caculator:
+			
+			if(costInputEdit.isFocused()){
+				type = COST_FLAG;
 			}else{
-				for(int j = 0 ; j < incomeTypeList.size() ; j++){
-					if(j == index){
-						setTextViewState(incomeTypeList.get(j), mixFlag, thirdFlag);		
-					}
-				}
+				type = INCOME_FLAG;
 			}
-		}else{
-			switch (v.getId()) {
-			case R.id.use_caculator:
-				
-				if(costInputEdit.isFocused()){
-					type = COST_FLAG;
-				}else{
-					type = INCOME_FLAG;
-				}
-				
-				CapitalAdminApplication.getContext().setCalculateType(type);
-				
-				Intent intent = new Intent(getApplicationContext() , CalculatorActivity.class);
-				startActivityForResult(intent, 0);
-				break;				
-			case R.id.ok:
-					saveCostAndIncomeData();			
-				break;
-			case R.id.main_menu_setting_text:
-				hideInputMethod(v);
-				showPopWindow(v);
-				break;
-			default:
-				break;
-			}
-		}
-	}
-	
-	public void setTextViewState(TextView view , String flag , String thirdFlag){
-		String type = flag.split(":")[0];
-		int position = Integer.parseInt(flag.split(":")[1]);
-		boolean isChoosed = false;
-		if(thirdFlag.equals("n")){//选中
-			view.setTextColor(Color.BLACK);
-			view.setBackgroundResource(R.drawable.button_white);
-			view.setTag(flag + "y");	
-			isChoosed = true;
-		}else{//未选中
-			view.setTextColor(Color.WHITE);
-			view.setBackgroundResource(R.drawable.button_light);
-			view.setTag(flag + "n");
-			isChoosed = false;
-		}
-		
-		if(INCOME_FLAG.equals(type)){
-			if(!isChoosed){
-				incomeStringList.remove(DataCommon.INCOME_TYPE_DATA[position]);
-			}else{
-				incomeStringList.add(DataCommon.INCOME_TYPE_DATA[position]);
-			}
-			System.out.println(incomeStringList.toString());
-		}else{
-			if(!isChoosed){
-				costStringList.remove(DataCommon.COST_TYPE_DATA[position]);
-			}else{
-				costStringList.add(DataCommon.COST_TYPE_DATA[position]);
-			}
-			System.out.println(costStringList.toString());
+			
+			CapitalAdminApplication.getContext().setCalculateType(type);
+			
+			Intent intent = new Intent(getApplicationContext() , CalculatorActivity.class);
+			startActivityForResult(intent, 0);
+			break;				
+		case R.id.ok:
+				saveCostAndIncomeData();			
+			break;
+		case R.id.main_menu_setting_text:
+			hideInputMethod(v);
+			showPopWindow(v);
+			break;
+		case R.id.add_cost_item_button:
+			String costCount = costInputEdit.getText().toString();
+			addCostItemView(costType , costCount);
+			break;
+		case R.id.add_income_item_button:
+			String incomeCount = incomeEdit.getText().toString();
+			addIncomeItemView(incomeType , incomeCount);
+			break;
+		default:
+			break;
 		}
 	}
 	
 	public void saveCostAndIncomeData(){
 		
 		CapitalRecordDao dataDao = new CapitalRecordDaoImpl(getApplicationContext());
-		
-		String incomeMoney = incomeEdit.getText().toString();
-		String costMoney = costInputEdit.getText().toString();
-		
-		boolean isSaved = false;
-		
-		if(!StringUtil.isEmpty(incomeMoney)){
-			if(!incomeMoney.equals("0")){
-				if(IsListNotNull.isListNotNull(incomeStringList)){
-					CapitalRecord recordData = new CapitalRecord();
-					recordData.setId(GenerateId.sequenceId());
-					recordData.setCount(incomeMoney);
-					recordData.setType(INCOME_FLAG);			
-					Date date = new Date();		
-					recordData.setTime(String.valueOf(date.getTime()));
-					recordData.setYear(year);
-					recordData.setMonth(month);
-					recordData.setWeek(week);
-					recordData.setDay(day);
-					recordData.setCostType(incomeStringList.toString());
-					
-					int result = dataDao.saveOrUpdate(recordData);
-					if(result != 0){
-						isSaved = true;
-						Toast.makeText(getApplicationContext(), "记账成功！", Toast.LENGTH_LONG).show();
-						okBtn.setText("查看账单");
-					}
-				}else{							
-					Toast.makeText(getApplicationContext(), "请选择收入类型！", Toast.LENGTH_LONG).show();
-					return;
+		if(IsListNotNull.isListNotNull(recordDataList)){	
+			int flag = dataDao.save(recordDataList);
+			if(flag == 1){
+				toastDialog.show("保存成功！");
+				costItemContainer.removeAllViews();
+				incomeItemContainer.removeAllViews();
+				if(recordDataList.size() > 0){
+					recordDataList.clear();
 				}
 			}
 		}
+	}
+	
+	public void addCostItemView(String nameType , String countNumber){
 		
-		if(!StringUtil.isEmpty(costMoney)){
-			if(!costMoney.equals("0")){
-				if(IsListNotNull.isListNotNull(costStringList)){
-					CapitalRecord recordData = new CapitalRecord();
-					recordData.setId(GenerateId.sequenceId());
-					recordData.setCount(costMoney);
-					recordData.setType(COST_FLAG);			
-					Date date = new Date();		
-					recordData.setTime(String.valueOf(date.getTime()));
-					recordData.setYear(year);
-					recordData.setMonth(month);
-					recordData.setWeek(week);
-					recordData.setDay(day);
-					recordData.setCostType(costStringList.toString());
-					
-					int result = dataDao.saveOrUpdate(recordData);
-					if(result != 0 && !isSaved){
-						Toast.makeText(getApplicationContext(), "记账成功！", Toast.LENGTH_LONG).show();
-						okBtn.setText("查看账单");
-					}
-				}else{							
-					Toast.makeText(getApplicationContext(), "请选择支出类型！", Toast.LENGTH_LONG).show();
-					return;
-				}
-			}
+		if(StringUtil.isEmpty(nameType)){
+			toastDialog.show("请先选择支出类型");
+			return;
 		}
+		
+		if(StringUtil.isEmpty(countNumber)){
+			toastDialog.show("请填写支出金额");
+			return;
+		}
+		
+		generateData(nameType, countNumber, COST_FLAG);
+	}
+	
+	public void addIncomeItemView(String nameType , String countNumber){
+		if(StringUtil.isEmpty(nameType)){
+			toastDialog.show("请先选择收入类型");
+			return;
+		}
+		
+		if(StringUtil.isEmpty(countNumber)){
+			toastDialog.show("请填写收入金额");
+			return;
+		}
+		
+		generateData(nameType, countNumber, INCOME_FLAG);
+	}
+	
+	public void generateData(String type , String countNumber , final String flag){
+		CapitalRecord recordData = new CapitalRecord();
+		recordData.setId(GenerateId.sequenceId());
+		recordData.setCount(countNumber);
+		recordData.setType(flag);			
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		String time = format.format(new Date());
+		recordData.setTime(time);
+		recordData.setYear(year);
+		recordData.setMonth(month);
+		recordData.setWeek(week);
+		recordData.setDay(day);			
+		
+		final View childView = inflater.inflate(R.layout.cost_income_type_item, null);		
+		TextView nameView = (TextView)childView.findViewById(R.id.item_name);
+		nameView.setText(type);
+		TextView countNumberView = (TextView)childView.findViewById(R.id.count_number_text);
+		countNumberView.setText(countNumber);
+		Button deleteItemBtn = (Button)childView.findViewById(R.id.delete_item_button);
+		deleteItemBtn.setTag(flag);
+		deleteItemBtn.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				View parentView = (View)arg0.getParent();
+				CapitalRecord deleteRecordData = (CapitalRecord)parentView.getTag();
+				recordDataList.remove(deleteRecordData);
+				
+				String flag = (String)arg0.getTag();
+				if(INCOME_FLAG.equals(flag)){
+					incomeItemContainer.removeView(parentView);
+				}else{
+					costItemContainer.removeView(parentView);
+				}
+				
+			}
+		});
+		
+		if(INCOME_FLAG.equals(flag)){		
+			incomeItemContainer.addView(childView, -1);
+			recordData.setCostType(DataCommon.INCOME_TYPE_DATA[incomeIndex]);	
+		}else{
+			costItemContainer.addView(childView, -1);
+			recordData.setCostType(DataCommon.COST_TYPE_DATA[costIndex]);	
+		}
+		recordDataList.add(recordData);
+		childView.setTag(recordData);
 	}
 	
 	@Override

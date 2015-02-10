@@ -1,9 +1,8 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
-    android:orientation="vertical" >
+    android:background="@drawable/background" >
 
     <include
         android:id="@+id/title_Layout"
@@ -13,136 +12,155 @@
         android:id="@+id/date_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/title_Layout"
         android:layout_margin="8dp"
         android:gravity="left"
         android:text="今天是2015年1月17号\n星期二"
         android:textColor="#ffffff"
         android:textSize="24sp" />
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/date_text" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/date_text"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="6dp"
+                android:gravity="left"
+                android:text="添加今天支出金额"
+                android:textColor="#ffffff"
+                android:textSize="18sp" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/container_item_margin_size"
+                android:orientation="horizontal" >
+
+                <Spinner
+                    android:id="@+id/cost_item_name_spinner"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/container_item_margin_size"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/count_list_spinner_choose_state" />
+
+                <EditText
+                    android:id="@+id/cost_input_edit"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/edittext_margin_size"
+                    android:layout_weight="0.3"
+                    android:background="@drawable/edittext_background"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:textSize="@dimen/edittext_text_size" />
+
+                <Button
+                    android:id="@+id/add_cost_item_button"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.2"
+                    android:background="@drawable/button_selector"
+                    android:text="添加"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/cost_income_text_size" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/cost_item_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="6dp"
+                android:gravity="left"
+                android:text="添加今天支出金额"
+                android:textColor="#ffffff"
+                android:textSize="18sp" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/container_item_margin_size"
+                android:orientation="horizontal" >
+
+                <Spinner
+                    android:id="@+id/income_item_name_spinner"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/container_item_margin_size"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/count_list_spinner_choose_state" />
+
+                <EditText
+                    android:id="@+id/income_input_edit"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/edittext_margin_size"
+                    android:layout_weight="0.3"
+                    android:background="@drawable/edittext_background"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:textSize="@dimen/edittext_text_size" />
+
+                <Button
+                    android:id="@+id/add_income_item_button"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.2"
+                    android:background="@drawable/button_selector"
+                    android:text="添加"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/cost_income_text_size" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/income_item_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+        </LinearLayout>
+    </ScrollView>
+
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="vertical" >
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal" >
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="6dp"
-            android:gravity="left"
-            android:text="添加今天支出金额"
-            android:textColor="#ffffff"
-            android:textSize="18sp" />
+        <Button
+            android:id="@+id/use_caculator"
+            style="@style/CostBottomButtonStyle"
+            android:layout_weight="0.5"
+            android:text="计算器" />
 
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+        <Button
+            android:id="@+id/share"
+            style="@style/CostBottomButtonStyle"
+            android:layout_weight="0.5"
+            android:text="分享" />
 
-            <Spinner
-                android:id="@+id/cost_item_name_spinner"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5" />
-
-            <EditText
-                android:id="@+id/cost_input_edit"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="8dp"
-                android:layout_weight="0.3"
-                android:background="@drawable/edittext_background"
-                android:gravity="center"
-                android:inputType="number" />
-
-            <Button
-                android:id="@+id/add_cost_item_button"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.2"
-                android:background="@drawable/button_selector"
-                android:text="添加"
-                android:textColor="@color/blue_deep"
-                android:textSize="@dimen/cost_income_text_size" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/cost_item_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="6dp"
-            android:gravity="left"
-            android:text="添加今天支出金额"
-            android:textColor="#ffffff"
-            android:textSize="18sp" />
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-
-            <Spinner
-                android:id="@+id/income_item_name_spinner"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5" />
-
-            <EditText
-                android:id="@+id/income_input_edit"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="8dp"
-                android:layout_weight="0.3"
-                android:background="@drawable/edittext_background"
-                android:gravity="center"
-                android:inputType="number" />
-
-            <Button
-                android:id="@+id/add_income_item_button"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.2"
-                android:background="@drawable/button_selector"
-                android:text="添加"
-                android:textColor="@color/blue_deep"
-                android:textSize="@dimen/cost_income_text_size" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/income_item_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-
-            <Button
-                android:id="@+id/use_caculator"
-                style="@style/CostBottomButtonStyle"
-                android:layout_weight="0.5"
-                android:text="计算器" />
-
-            <Button
-                android:id="@+id/share"
-                style="@style/CostBottomButtonStyle"
-                android:layout_weight="0.5"
-                android:text="分享" />
-
-            <Button
-                android:id="@+id/ok"
-                style="@style/CostBottomButtonStyle"
-                android:layout_weight="0.5"
-                android:text="确定" />
-        </LinearLayout>
+        <Button
+            android:id="@+id/ok"
+            style="@style/CostBottomButtonStyle"
+            android:layout_weight="0.5"
+            android:text="确定" />
     </LinearLayout>
-</LinearLayout>
+
+</RelativeLayout>
