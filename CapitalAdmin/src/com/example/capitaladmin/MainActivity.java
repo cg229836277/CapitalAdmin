@@ -15,10 +15,7 @@ import com.example.capitaladmin.common.StringUtil;
 import com.example.capitaladmin.dao.CapitalRecordDao;
 import com.example.capitaladmin.dao.impl.CapitalRecordDaoImpl;
 import com.example.capitaladmin.entity.CapitalRecord;
-import com.example.capitaladmin.view.MyToastDialog;
-
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,7 +28,6 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class MainActivity extends BaseActivity implements OnClickListener{
 
@@ -40,15 +36,12 @@ public class MainActivity extends BaseActivity implements OnClickListener{
 	private TextView dateText;
 	private Button useCalculatorBtn;
 	private Button okBtn;
-	private Spinner incomeTypeSpinner;
+	private Spinner parentTypeSpinner;
 	private Spinner costTypeSpinner;
 	private Button addCostItemButton;
-	private Button addIncomeItemButton;
-	
-	private LinearLayout incomeItemContainer;
-	private LinearLayout costItemContainer;
-	
-	private SpinnerAdapter costAdapter , incomeAdapter;
+	private LinearLayout costItemContainer;	
+	private SpinnerAdapter costAdapter;
+	private SpinnerAdapter parentTypeAdapter;
 		
 	List<CapitalRecord> recordDataList = new ArrayList<CapitalRecord>();
 	
@@ -88,7 +81,6 @@ public class MainActivity extends BaseActivity implements OnClickListener{
 	
 	public void bindEvent(){
 		costInputEdit = (EditText)findViewById(R.id.cost_input_edit);
-		incomeEdit = (EditText)findViewById(R.id.income_input_edit);
 		dateText = (TextView)findViewById(R.id.date_text);
 		useCalculatorBtn = (Button)findViewById(R.id.use_caculator);
 		useCalculatorBtn.setOnClickListener(this);
@@ -99,23 +91,18 @@ public class MainActivity extends BaseActivity implements OnClickListener{
 		addCostItemButton = (Button)findViewById(R.id.add_cost_item_button);
 		addCostItemButton.setOnClickListener(this);
 		
-		addIncomeItemButton = (Button)findViewById(R.id.add_income_item_button);
-		addIncomeItemButton.setOnClickListener(this);
-		
 		menuTextView = (TextView)findViewById(R.id.main_menu_setting_text);
 		menuTextView.setOnClickListener(this);
 		
-		incomeItemContainer = (LinearLayout)findViewById(R.id.income_item_container);
 		costItemContainer = (LinearLayout)findViewById(R.id.cost_item_container);
 		
 		costTypeSpinner = (Spinner)findViewById(R.id.cost_item_name_spinner);
-		incomeTypeSpinner = (Spinner)findViewById(R.id.income_item_name_spinner);
+		parentTypeSpinner = (Spinner)findViewById(R.id.parent_type_spinner);
+
 		costAdapter = SpinnerAdapterFactory.getAdapter(DataCommon.COSTTYPE);
-		incomeAdapter = SpinnerAdapterFactory.getAdapter(DataCommon.INCOMTYPE);
-		
-		costTypeSpinner.setAdapter(costAdapter);
-		incomeTypeSpinner.setAdapter(incomeAdapter);
-		
+		parentTypeAdapter = SpinnerAdapterFactory.getAdapter(DataCommon.PARENT_TYPE);
+		parentTypeSpinner.setAdapter(parentTypeAdapter);
+		costTypeSpinner.setAdapter(costAdapter);		
 		costTypeSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 			@Override
@@ -134,15 +121,15 @@ public class MainActivity extends BaseActivity implements OnClickListener{
 			}
 		});
 		
-		incomeTypeSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+		parentTypeSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View arg1,int arg2, long arg3) {
 				if(arg2 == 0){
-					incomeType = null;
+					costType = null;
 				}else{
-					incomeType = DataCommon.COSTTYPE[arg2];
-					incomeIndex = arg2 - 1;
+					costType = DataCommon.COSTTYPE[arg2];
+					costIndex = arg2 - 1;
 				}
 			}
 
@@ -208,10 +195,6 @@ public class MainActivity extends BaseActivity implements OnClickListener{
 			String costCount = costInputEdit.getText().toString();
 			addCostItemView(costType , costCount);
 			break;
-		case R.id.add_income_item_button:
-			String incomeCount = incomeEdit.getText().toString();
-			addIncomeItemView(incomeType , incomeCount);
-			break;
 		default:
 			break;
 		}
@@ -225,7 +208,6 @@ public class MainActivity extends BaseActivity implements OnClickListener{
 			if(flag == 1){
 				toastDialog.show("保存成功！");
 				costItemContainer.removeAllViews();
-				incomeItemContainer.removeAllViews();
 				if(recordDataList.size() > 0){
 					recordDataList.clear();
 				}
@@ -291,22 +273,16 @@ public class MainActivity extends BaseActivity implements OnClickListener{
 				recordDataList.remove(deleteRecordData);
 				
 				String flag = (String)arg0.getTag();
-				if(INCOME_FLAG.equals(flag)){
-					incomeItemContainer.removeView(parentView);
-				}else{
-					costItemContainer.removeView(parentView);
-				}
-				
+				costItemContainer.removeView(parentView);
 			}
 		});
 		
 		if(INCOME_FLAG.equals(flag)){		
-			incomeItemContainer.addView(childView, -1);
 			recordData.setCostType(DataCommon.INCOME_TYPE_DATA[incomeIndex]);	
-		}else{
-			costItemContainer.addView(childView, -1);
+		}else{			
 			recordData.setCostType(DataCommon.COST_TYPE_DATA[costIndex]);	
 		}
+		costItemContainer.addView(childView, -1);
 		recordDataList.add(recordData);
 		childView.setTag(recordData);
 	}
