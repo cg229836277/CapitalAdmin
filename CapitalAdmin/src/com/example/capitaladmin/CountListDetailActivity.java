@@ -1,11 +1,7 @@
 package com.example.capitaladmin;
 
 import com.example.capitaladmin.base.BaseActivity;
-
-import android.app.Activity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 
 public class CountListDetailActivity extends BaseActivity {
 
